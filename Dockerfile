@@ -29,4 +29,4 @@ COPY --from=0 /app/bin .
 EXPOSE 50054
 
 # 运行编译好的二进制文件
-CMD ["./StealthIMGroupUser","--config=./config/config.toml"]
+CMD ["./StealthIMProxy","--config=./config/config.toml"]
