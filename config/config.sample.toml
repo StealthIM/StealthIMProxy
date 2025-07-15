@@ -1,0 +1,34 @@
+[proxy]
+host = "127.0.0.1" # 地址
+port = 8089        # 监听端口
+log = false        # 启用日志，调试功能，上线建议关闭
+
+[fileapi] # FileAPI
+host = "127.0.0.1"
+port = 50053
+conn_num = 5
+
+[session] # Session
+host = "127.0.0.1"
+port = 50054
+conn_num = 5
+
+[user] # User
+host = "127.0.0.1"
+port = 50055
+conn_num = 5
+
+[msap_read] # MSAP 读（sync）端口
+host = "127.0.0.1"
+port = 50057
+conn_num = 5
+
+[msap_write] # MSAP 写（send）端口
+host = "127.0.0.1"
+port = 50056
+conn_num = 5
+
+[group] # GroupUser
+host = "127.0.0.1"
+port = 50058
+conn_num = 5

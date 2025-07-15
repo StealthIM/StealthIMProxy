@@ -1,0 +1,13 @@
+StealthIM.Session
+StealthIM.User
+StealthIM.GroupUser
+StealthIM.FileAPI
+StealthIM.MSAP
+bin
+config.toml
+__debug*
+cfg
+.pytest_cache
+__pycache__
+*_grpc.py*
+*_pb2.py*
