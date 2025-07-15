@@ -1,14 +1,12 @@
-# StealthIM GroupUser
+# StealthIM Proxy
 
-群中用户管理 `0.0.1`
-
-> `.proto` 文件：`./proto/session.proto`
+入口点 `0.0.1`
 
 ## 构建
 
 ### 依赖
 
-Go 版本：`1.24.2`
+Go 版本：`1.24.4`
 
 软件包：`protobuf` `protobuf-dev` `make`
 
