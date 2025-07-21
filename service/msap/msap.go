@@ -216,6 +216,29 @@ func sync(c *gin.Context) {
 		return
 	}
 
+	go func() {
+		for {
+			time.Sleep(30 * time.Second)
+			select {
+			case <-c.Request.Context().Done():
+				return
+			default:
+				jsonData, err := json.Marshal(gin.H{
+					"result": gin.H{
+						"code": errorcode.Success,
+						"msg":  "",
+					},
+					"msg": []gin.H{},
+				})
+				fmt.Fprintf(w, "data: %s\n\n", jsonData)
+				flusher.Flush()
+				if err != nil {
+					return
+				}
+			}
+		}
+	}()
+
 	// 循环从gRPC流中接收消息并发送到SSE客户端
 	for {
 		select {
