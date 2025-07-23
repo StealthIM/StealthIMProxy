@@ -37,7 +37,7 @@ func send(c *gin.Context) {
 	var obj sendRequest
 	groupid := c.GetInt64("groupid")
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -48,7 +48,7 @@ func send(c *gin.Context) {
 
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -64,7 +64,7 @@ func send(c *gin.Context) {
 		Groupid: int64(groupid),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -86,7 +86,7 @@ func recall(c *gin.Context) {
 
 	groupid := c.GetInt64("groupid")
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -97,7 +97,7 @@ func recall(c *gin.Context) {
 	msgid, err := strconv.ParseInt(obj.MsgID, 10, 64)
 
 	if err != nil || msgid <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -107,7 +107,7 @@ func recall(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -123,7 +123,7 @@ func recall(c *gin.Context) {
 		Groupid: int64(groupid),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,

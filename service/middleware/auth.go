@@ -32,7 +32,7 @@ func AuthSession() gin.HandlerFunc {
 
 		// 2. 检查 Authorization 头是否存在且格式正确 (例如 "Bearer <token>")
 		if authHeader == "" {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ProxyAuthFailed,
 					"msg":  "Authorization header is required",
@@ -46,7 +46,7 @@ func AuthSession() gin.HandlerFunc {
 		// 我们需要分割字符串来获取实际的 token_string
 		parts := strings.SplitN(authHeader, " ", 2)
 		if !(len(parts) == 2 && strings.ToLower(parts[0]) == "bearer") {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ProxyAuthFailed,
 					"msg":  "Authorization header format must be Bearer <token>",
@@ -60,7 +60,7 @@ func AuthSession() gin.HandlerFunc {
 
 		cli, err := call()
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ServerInternalNetworkError,
 					"msg":  err.Error(),
@@ -75,7 +75,7 @@ func AuthSession() gin.HandlerFunc {
 			Session: tokenString,
 		})
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ProxyAuthFailed,
 					"msg":  err.Error(),
@@ -85,7 +85,7 @@ func AuthSession() gin.HandlerFunc {
 			return
 		}
 		if ret.Result.Code != errorcode.Success {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ProxyAuthFailed,
 					"msg":  ret.Result.Msg,
@@ -95,7 +95,7 @@ func AuthSession() gin.HandlerFunc {
 			return
 		}
 		if ret.Uid <= 0 {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"result": gin.H{
 					"code": errorcode.ProxyAuthFailed,
 					"msg":  "Session not found",

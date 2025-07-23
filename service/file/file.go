@@ -271,7 +271,7 @@ func getInfo(c *gin.Context) {
 
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -285,7 +285,7 @@ func getInfo(c *gin.Context) {
 		Hash: fileHash,
 	})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  "Network error",
@@ -294,7 +294,7 @@ func getInfo(c *gin.Context) {
 		return
 	}
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -349,7 +349,7 @@ func download(c *gin.Context) {
 
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -363,7 +363,7 @@ func download(c *gin.Context) {
 		Hash: fileHash,
 	})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  "Network error",
@@ -372,7 +372,7 @@ func download(c *gin.Context) {
 		return
 	}
 	if fileInfoRet.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": fileInfoRet.Result.Code,
 				"msg":  fileInfoRet.Result.Msg,
@@ -414,7 +414,7 @@ func download(c *gin.Context) {
 		End:   (end + 1), // 原API是包含头不包含尾的，所以这里需要加1
 	})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  "Network error",

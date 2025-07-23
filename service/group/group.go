@@ -28,7 +28,7 @@ func getByUID(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -42,7 +42,7 @@ func getByUID(c *gin.Context) {
 		Uid: uid,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -65,7 +65,7 @@ func getPublicInfo(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -74,7 +74,7 @@ func getPublicInfo(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -88,7 +88,7 @@ func getPublicInfo(c *gin.Context) {
 		GroupId: int32(groupid),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -111,7 +111,7 @@ func getInfo(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -120,7 +120,7 @@ func getInfo(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -135,7 +135,7 @@ func getInfo(c *gin.Context) {
 		GroupId: int32(groupid),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -162,7 +162,7 @@ func getInfo(c *gin.Context) {
 func create(c *gin.Context) {
 	var obj createGroupRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -173,7 +173,7 @@ func create(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -188,7 +188,7 @@ func create(c *gin.Context) {
 		Name: obj.Name,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -210,7 +210,7 @@ func join(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -219,7 +219,7 @@ func join(c *gin.Context) {
 	}
 	var obj joinRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -229,7 +229,7 @@ func join(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -245,7 +245,7 @@ func join(c *gin.Context) {
 		GroupId:  int32(groupid),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -266,7 +266,7 @@ func invite(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -275,7 +275,7 @@ func invite(c *gin.Context) {
 	}
 	var obj inviteRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -285,7 +285,7 @@ func invite(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -301,7 +301,7 @@ func invite(c *gin.Context) {
 		Username: obj.Username,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -323,7 +323,7 @@ func setUserType(c *gin.Context) {
 	var username string = c.Param("username")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -332,7 +332,7 @@ func setUserType(c *gin.Context) {
 	}
 	var obj setUserTypeRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -341,7 +341,7 @@ func setUserType(c *gin.Context) {
 		return
 	}
 	if obj.Type != int32(pb.MemberType_owner) && obj.Type != int32(pb.MemberType_member) && obj.Type != int32(pb.MemberType_manager) {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  "Type is invalid",
@@ -351,7 +351,7 @@ func setUserType(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -368,7 +368,7 @@ func setUserType(c *gin.Context) {
 		Type:     pb.MemberType(obj.Type),
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -390,7 +390,7 @@ func kickUser(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -399,7 +399,7 @@ func kickUser(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -415,7 +415,7 @@ func kickUser(c *gin.Context) {
 		Username: username,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -436,7 +436,7 @@ func changePassword(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -445,7 +445,7 @@ func changePassword(c *gin.Context) {
 	}
 	var obj changePasswordRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -455,7 +455,7 @@ func changePassword(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -471,7 +471,7 @@ func changePassword(c *gin.Context) {
 		Uid:      uid,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -492,7 +492,7 @@ func changeName(c *gin.Context) {
 	var groupidStr string = c.Param("groupid")
 	groupid, err := strconv.ParseInt(groupidStr, 10, 64)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -501,7 +501,7 @@ func changeName(c *gin.Context) {
 	}
 	var obj changeNameRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -511,7 +511,7 @@ func changeName(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -527,7 +527,7 @@ func changeName(c *gin.Context) {
 		Uid:     uid,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,

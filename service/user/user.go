@@ -25,7 +25,7 @@ func call() (*pb.StealthIMUserClient, error) {
 func register(c *gin.Context) {
 	var obj registerRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -35,7 +35,7 @@ func register(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -53,7 +53,7 @@ func register(c *gin.Context) {
 		PhoneNumber: obj.PhoneNumber,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -72,7 +72,7 @@ func register(c *gin.Context) {
 func login(c *gin.Context) {
 	var obj loginRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -82,7 +82,7 @@ func login(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -97,7 +97,7 @@ func login(c *gin.Context) {
 		Password: obj.Password,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -126,7 +126,7 @@ func delete(c *gin.Context) {
 	cli, err := call()
 	var uid int32 = int32(c.GetInt("uid"))
 	if uid <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyAuthFailed,
 				"msg":  "uid is invalid",
@@ -135,7 +135,7 @@ func delete(c *gin.Context) {
 		return
 	}
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -149,7 +149,7 @@ func delete(c *gin.Context) {
 		UserId: uid,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -169,7 +169,7 @@ func getUserInfo(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -183,7 +183,7 @@ func getUserInfo(c *gin.Context) {
 		UserId: uid,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -211,7 +211,7 @@ func getUserPublicInfo(c *gin.Context) {
 	var username string = c.Param("username")
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -225,7 +225,7 @@ func getUserPublicInfo(c *gin.Context) {
 		Username: username,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -249,7 +249,7 @@ func changePassword(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	var obj changePasswordRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -259,7 +259,7 @@ func changePassword(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -274,7 +274,7 @@ func changePassword(c *gin.Context) {
 		NewPassword: obj.Password,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -294,7 +294,7 @@ func changeNickname(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	var obj changeNicknameRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -304,7 +304,7 @@ func changeNickname(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -319,7 +319,7 @@ func changeNickname(c *gin.Context) {
 		NewNickname: obj.Nickname,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -339,7 +339,7 @@ func changeEmail(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	var obj changeEmailRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -349,7 +349,7 @@ func changeEmail(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -364,7 +364,7 @@ func changeEmail(c *gin.Context) {
 		NewEmail: obj.Email,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
@@ -384,7 +384,7 @@ func changePhoneNumber(c *gin.Context) {
 	var uid int32 = int32(c.GetInt("uid"))
 	var obj changePhoneNumberRequest
 	if err := c.ShouldBindJSON(&obj); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
 				"msg":  err.Error(),
@@ -394,7 +394,7 @@ func changePhoneNumber(c *gin.Context) {
 	}
 	cli, err := call()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": errorcode.ServerInternalNetworkError,
 				"msg":  err.Error(),
@@ -409,7 +409,7 @@ func changePhoneNumber(c *gin.Context) {
 		NewPhoneNumber: obj.PhoneNumber,
 	})
 	if ret.Result.Code != errorcode.Success {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
 				"code": ret.Result.Code,
 				"msg":  ret.Result.Msg,
