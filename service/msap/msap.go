@@ -266,13 +266,14 @@ func sync(c *gin.Context) {
 			msgs := make([]gin.H, len(msg.Msg))
 			for i, m := range msg.Msg {
 				msgs[i] = gin.H{
-					"msgid":   fmt.Sprintf("%d", m.Msgid), // 处理int64类型
-					"uid":     m.Uid,
-					"groupid": fmt.Sprintf("%d", m.Groupid), // 处理int64类型
-					"msg":     m.Msg,
-					"type":    int(m.Type),
-					"hash":    m.Hash,
-					"time":    fmt.Sprintf("%d", m.Time), // 处理int64类型
+					"msgid":    fmt.Sprintf("%d", m.Msgid), // 处理int64类型
+					"uid":      m.Uid,
+					"groupid":  fmt.Sprintf("%d", m.Groupid), // 处理int64类型
+					"msg":      m.Msg,
+					"type":     int(m.Type),
+					"hash":     m.Hash,
+					"time":     fmt.Sprintf("%d", m.Time), // 处理int64类型
+					"username": m.Username,
 				}
 			}
 			jsonData, err = json.Marshal(gin.H{
