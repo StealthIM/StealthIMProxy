@@ -52,6 +52,15 @@ func register(c *gin.Context) {
 		Email:       obj.Email,
 		PhoneNumber: obj.PhoneNumber,
 	})
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"result": gin.H{
+				"code": errorcode.ServerInternalNetworkError,
+				"msg":  err.Error(),
+			},
+		})
+		return
+	}
 	if ret.Result.Code != errorcode.Success {
 		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
@@ -96,6 +105,15 @@ func login(c *gin.Context) {
 		Username: obj.Username,
 		Password: obj.Password,
 	})
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"result": gin.H{
+				"code": errorcode.ServerInternalNetworkError,
+				"msg":  err.Error(),
+			},
+		})
+		return
+	}
 	if ret.Result.Code != errorcode.Success {
 		c.JSON(http.StatusOK, gin.H{
 			"result": gin.H{
