@@ -6,11 +6,12 @@ import (
 	"StealthIMProxy/errorcode"
 	"context"
 	"encoding/binary"
-	"encoding/json" // 导入io包
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -110,12 +111,44 @@ func upload(c *gin.Context) {
 		})
 		return
 	}
+	if metadata.Size == "" || metadata.Size == "0" || metadata.Groupid == "" || metadata.Groupid == "0" || metadata.Hash == "" {
+		conn.WriteJSON(gin.H{
+			"result": gin.H{
+				"code": errorcode.ProxyBadRequest,
+				"msg":  "Metadata format error",
+			},
+			"type": "metadata",
+		})
+		return
+	}
+	if len(metadata.Filename) > 30 {
+		conn.WriteJSON(gin.H{
+			"result": gin.H{
+				"code": errorcode.ProxyBadRequest,
+				"msg":  "Metadata format error",
+			},
+			"type": "metadata",
+		})
+		return
+	}
+	if strings.ContainsAny(metadata.Filename, "/\\<>|*:?\"") {
+		conn.WriteJSON(gin.H{
+			"result": gin.H{
+				"code": errorcode.ProxyBadRequest,
+				"msg":  "Filename cannot contain special characters like '/', '\\', '<', '>', '|', '*', ':', '?', '\"'",
+			},
+			"type": "metadata",
+		})
+		return
+	}
+
 	err = stream.Send(&pb.UploadRequest{Data: &pb.UploadRequest_Metadata{
 		Metadata: &pb.Upload_FileMetaData{
 			Totalsize:     filesize,
 			UploadGroupid: grpid,
 			UploadUid:     uid,
 			Hash:          metadata.Hash,
+			Filename:      metadata.Filename,
 		},
 	}})
 	if err != nil {

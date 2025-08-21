@@ -1,7 +1,8 @@
 package file
 
 type meatdataRequest struct {
-	Size    string `json:"size"`
-	Groupid string `json:"groupid"`
-	Hash    string `json:"hash"`
+	Size     string `json:"size"`
+	Groupid  string `json:"groupid"`
+	Hash     string `json:"hash"`
+	Filename string `json:"filename"`
 }
