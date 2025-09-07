@@ -30,7 +30,7 @@ jobs:
           ORG_REPO="${{ github.repository }}"
           ORG=$(echo "${ORG_REPO}" | cut -d '/' -f 1 | tr '[:upper:]' '[:lower:]')
           REPO=$(echo "${ORG_REPO}" | cut -d '/' -f 2 | tr '[:upper:]' '[:lower:]')
-          IMAGE_NAME="ghcr.io/${ORG}/${REPO}-app"
+          IMAGE_NAME="ghcr.io/${ORG}/${REPO}/${REPO}-app"
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
 
       - name: Pull latest image
