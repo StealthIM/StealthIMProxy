@@ -20,7 +20,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PKGTOKEN }}
 
       - name: Set up VERSION environment variable
         run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
