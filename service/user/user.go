@@ -43,7 +43,7 @@ func register(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).Register(ctx, &pb.RegisterRequest{
 		Username:    obj.Username,
@@ -99,7 +99,7 @@ func login(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).Login(ctx, &pb.LoginRequest{
 		Username: obj.Username,
@@ -161,7 +161,7 @@ func delete(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).Logout(ctx, &pb.LogoutRequest{
 		UserId: uid,
@@ -195,7 +195,7 @@ func getUserInfo(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).GetUserInfo(ctx, &pb.GetUserInfoRequest{
 		UserId: uid,
@@ -237,7 +237,7 @@ func getUserPublicInfo(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).GetOtherUserInfo(ctx, &pb.GetOtherUserInfoRequest{
 		Username: username,
@@ -285,7 +285,7 @@ func changePassword(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).ChangePassword(ctx, &pb.ChangePasswordRequest{
 		UserId:      uid,
@@ -330,7 +330,7 @@ func changeNickname(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).ChangeNickname(ctx, &pb.ChangeNicknameRequest{
 		UserId:      uid,
@@ -375,7 +375,7 @@ func changeEmail(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).ChangeEmail(ctx, &pb.ChangeEmailRequest{
 		UserId:   uid,
@@ -420,7 +420,7 @@ func changePhoneNumber(c *gin.Context) {
 		})
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	ret, err := (*cli).ChangePhoneNumber(ctx, &pb.ChangePhoneNumberRequest{
 		UserId:         uid,
