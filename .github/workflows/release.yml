@@ -129,5 +129,5 @@ jobs:
         with:
           files: |
             StealthIMProxy
-            StealthIMProxyP.exe
+            StealthIMProxy.exe
             StealthIMProxy.docker.zst
