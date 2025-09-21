@@ -156,6 +156,17 @@ func sync(c *gin.Context) {
 	// 从请求中获取groupid和last_msgid
 	groupID := c.GetInt64("groupid")
 	lastMsgIDStr := c.Query("msgid")
+	startSync := c.Query("sync") != "false"
+	usePrev := c.Query("prev") == "true"
+	msgLimitStr := c.Query("limit")
+	if msgLimitStr == "" {
+		msgLimitStr = "128"
+	}
+	msgLimit64, err := strconv.Atoi(msgLimitStr)
+	if err != nil || msgLimit64 <= 0 {
+		msgLimit64 = 128
+	}
+	msgLimit := int32(msgLimit64)
 
 	if groupID == 0 {
 		jsonData, _ := json.Marshal(gin.H{
@@ -200,6 +211,9 @@ func sync(c *gin.Context) {
 	req := &pb.SyncMessageRequest{
 		Groupid:   groupID,
 		LastMsgid: msgid,
+		Prev:      usePrev,
+		Sync:      startSync,
+		Limit:     msgLimit,
 	}
 
 	// 调用gRPC服务端流方法
