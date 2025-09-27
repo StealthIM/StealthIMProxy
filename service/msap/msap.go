@@ -157,7 +157,6 @@ func sync(c *gin.Context) {
 	groupID := c.GetInt64("groupid")
 	lastMsgIDStr := c.Query("msgid")
 	startSync := c.Query("sync") != "false"
-	usePrev := c.Query("prev") == "true"
 	msgLimitStr := c.Query("limit")
 	if msgLimitStr == "" {
 		msgLimitStr = "128"
@@ -211,7 +210,6 @@ func sync(c *gin.Context) {
 	req := &pb.SyncMessageRequest{
 		Groupid:   groupID,
 		LastMsgid: msgid,
-		Prev:      usePrev,
 		Sync:      startSync,
 		Limit:     msgLimit,
 	}
