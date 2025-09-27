@@ -180,7 +180,7 @@ func sync(c *gin.Context) {
 	}
 	msgid, err := strconv.ParseInt(lastMsgIDStr, 10, 64)
 
-	if err != nil || msgid < 0 {
+	if err != nil || msgid < -1 {
 		jsonData, _ := json.Marshal(gin.H{
 			"result": gin.H{
 				"code": errorcode.ProxyBadRequest,
